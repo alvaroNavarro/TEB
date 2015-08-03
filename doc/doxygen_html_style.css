@@ -1,0 +1,29 @@
+/*
+div.image img[alt="integrator_system_classic_mpc.png"]{ 
+    width:1100px; 
+}
+*/
+
+
+/* Specify image width */
+div.image img{ 
+    width:1100px; 
+}
+
+
+/* Custom image settings */
+div.image img[alt="robot_teb_sequence.png"]{ 
+    width:300px; 
+}
+div.image img[alt="robot_teb_hyper_graph2.svg"]{ 
+    width:650px; 
+}
+div.image img[alt="mobile_rob_states.png"]{
+    width:650px;
+}
+div.image img[alt="mobile_rob_xy.png"]{
+    width:650px;
+}
+div.image img[alt="mobile_rob_vel.png"]{
+    width:650px;
+}

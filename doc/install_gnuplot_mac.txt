@@ -1,0 +1,10 @@
+# For me (Christoph), x11 (xquartz) was not working if gnuplot was called from default terminal.
+# It worked only in xterm. Since xcode starts the default terminal, I decided to try aquaterm.
+
+# install xcode with command line tools
+# install homebrew
+# install aquaterm
+# terminal: brew install gnuplot --with-aquaterm
+# test installation:
+# terminal: gnuplot
+#			plot x

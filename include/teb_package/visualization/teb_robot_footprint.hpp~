@@ -1,0 +1,71 @@
+
+#include <teb_package/visualization/teb_robot_footprint.h>
+#include <cmath>
+
+namespace teb
+{
+ 
+  PointPolygon Footprint::setPolygonFootPrint()
+  {
+     
+    if(_angle >= 0 && _angle <= M_PI/2)
+      {
+	double alpha = M_PI - (M_PI/2 + _angle);
+	
+	
+	_pos_f[0] = _x + (_L/2) * std::cos(_angle);   _pos_f[1] = _y + (_L/2) * std::sin(_angle); 
+	_pos_r[0] = _x - (_L/2) * std::cos(_angle);   _pos_r[1] = _y - (_L/2) * std::sin(_angle);
+	    	
+	_points.front()[0]  = _pos_f[0] - (_Wr/2) * std::cos(alpha);  _points.front()[1]  = _pos_f[1] + (_Wr/2) * std::sin(alpha); //! Upper left
+	_points.at(1)[0]    = _pos_f[0] + (_Wr/2) * std::cos(alpha);  _points.at(1)[1]    = _pos_f[1] - (_Wr/2) * std::sin(alpha); //! Upper right
+	_points.at(2)[0]    = _pos_r[0] + (_Wr/2) * std::cos(alpha);  _points.at(2)[1]    = _pos_r[1] - (_Wr/2) * std::sin(alpha); //! Lower right
+	_points.back()[0]   = _pos_r[0] - (_Wr/2) * std::cos(alpha);  _points.back()[1]   = _pos_r[1] + (_Wr/2) * std::sin(alpha); //! Lower left                 
+	
+      }
+      
+      else if(_angle > M_PI/2 && _angle <= M_PI)
+      {
+	double alpha = M_PI - _angle;      
+	
+	_pos_f[0] = _x - (_L/2) * std::cos(M_PI - _angle);  _pos_f[1] = y + (_L/2) * std::sin(M_PI - _angle);
+	_pos_r[0] = _x + (_L/2) * std::cos(M_PI - _angle);  _pos_r[1] = y - (_L/2) * std::sin(M_PI - _angle);    
+		
+	_points.front()[0]  = _pos_f[0] - (_Wr/2) * std::cos(alpha);  _points.front()[1]  = _pos_f[1] - (_Wr/2) * std::sin(alpha);  //! Upper left
+	_points.at(1)[0]    = _pos_f[0] + (_Wr/2) * std::cos(alpha);  _points.at(1)[1]    = _pos_f[1] + (_Wr/2) * std::sin(alpha);  //! Upper right
+	_points.at(2)[0]    = _pos_r[0] + (_Wr/2) * std::cos(alpha);  _points.at(2)[1]    = _pos_r[1] + (_Wr/2) * std::sin(alpha);  //! Lower right
+	_points.back()[0]   = _pos_r[0] - (_Wr/2) * std::cos(alpha);  _points.back()[1]   = _pos_r[1] - (_Wr/2) * std::sin(alpha);  //! Lower left     
+		    
+      }
+      
+      else if(_angle < -M_PI/2 && _angle > -M_PI)
+      {
+	double alpha = M_PI - (M_PI/2 + _angle);
+	
+	_pos_f[0] = _x + (_L/2) * std::cos(_angle);  _pos_f[1] = _y + (_L/2) * std::sin(_angle);
+	_pos_r[0] = _x - (_L/2) * std::cos(_angle);  _pos_r[1] = _y - (_L/2) * std::sin(_angle);            
+		
+	_points.front()[0]  = _pos_f[0] + (_Wr/2) * std::cos(alpha);  _points.front()[1]  = _pos_f[1] - (_Wr/2) * std::sin(alpha);  //! Upper left
+	_points.at(1)[0]    = _pos_f[0] - (_Wr/2) * std::cos(alpha);  _points.at(1)[1]    = _pos_f[1] + (_Wr/2) * std::sin(alpha);  //! Upper right
+	_points.at(2)[0]    = _pos_r[0] - (_Wr/2) * std::cos(alpha);  _points.at(2)[1]    = _pos_r[1] + (_Wr/2) * std::sin(alpha);  //! Lower right
+	_points.back()[0]   = _pos_r[0] + (_Wr/2) * std::cos(alpha);  _points.back()[1]   = _pos_r[1] - (_Wr/2) * std::sin(alpha);  //! Lower left 
+	      
+      }
+
+      else  //! angle is -pi/2 < angle < 0
+      {
+	double _alpha = M_PI/2 + angle;
+	
+	_pos_f[0] = _x + (_L/2) * std::cos(angle);  _pos_f[1] = _y + (_L/2) * std::sin(angle);
+	_pos_r[0] = _x - (_L/2) * std::cos(angle);  _pos_r[1] = _y - (_L/2) * std::sin(angle);            
+	    	
+	_points.front()[0]  = _pos_f[0] + (_Wr/2) * std::cos(alpha);  _points.front()[1]  = _pos_f[1] + (_Wr/2) * std::sin(alpha);  //! Upper left
+	_points.at(1)[0]    = _pos_f[0] - (_Wr/2) * std::cos(alpha);  _points.at(1)[1]    = _pos_f[1] - (_Wr/2) * std::sin(alpha);  //! Upper right
+	_points.at(2)[0]    = _pos_r[0] - (_Wr/2) * std::cos(alpha);  _points.at(2)[1]    = _pos_r[1] - (_Wr/2) * std::sin(alpha);  //! Lower right
+	_points.back()[0]   = _pos_r[0] + (_Wr/2) * std::cos(alpha);  _points.back()[1]   = _pos_r[1] + (_Wr/2) * std::sin(alpha);  //! Lower left               
+	
+      } 
+    }
+    
+    return (_points);      
+      
+}

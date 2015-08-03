@@ -1,0 +1,75 @@
+/**
+\mainpage Timed-Elastic-Band Package Documentation
+
+\section overview Overview
+
+This project contains the implementation of a predictive controller
+and trajectory planner based on Timed-Elastic-Bands (TEB) (see \cite rosmann2014). \n
+
+The TEB merges the states, control inputs and time intervals into a joint trajectory representation which enables planning of time-optimal trajectories
+in the context of model predictive control. Model predictive
+control integrates the planning of the optimal trajectory with
+state feedback in the control loop. The TEB approach formulates the fixed horizon optimal control problem for point-to-point transitions as a nonlinear program.
+
+\section teb_problem TEB Optimization Problem
+
+
+\subsection formulation Problem Formulation
+The TEB joint trajectory representation is defined as follows:
+
+\f[
+\mathcal{B} := \{\mathbf{x}_1, \mathbf{u}_1, \mathbf{x}_2, \mathbf{u}_2, \dotsc, \mathbf{x}_{n-1}, \mathbf{u}_{n-1},\mathbf{x}_n, \Delta T \}
+\f]
+
+\f$ \mathbf{x}_i \in \mathbb{R}^p \f$ and \f$ \mathbf{u}_i \in \mathbb{R}^q \f$ are the discretized state and control input vectors respectively.
+\f$ \Delta T \f$ denotes the time difference required to transit from the \a i-th state to the consecutive one.
+Currently, this time difference is obtained from applying finite differences to the system dynamics equation (by replacing continuous derivatives).
+
+This project considers nonlinear programs of the following form to optimize the TEB sequence \f$ \mathcal{B} \f$.
+
+\f{eqnarray}
+& & V^*(\mathcal{B}) = \min f(\mathcal{B})\\
+&\textrm{s.t.:} & \nonumber \\
+&\quad & \mathbf{x}_1 = \mathbf{x}_s \\
+&\quad & \mathbf{x}_n \approx \mathbf{x}_f\\
+&\quad & \mathbf{h}_k (\mathcal{B}) = \mathbf{0} \quad k \in \mathcal{E} \\
+&\quad & \mathbf{g}_k (\mathcal{B}) \le \mathbf{0} \quad k \in \mathcal{I}
+\f}
+
+in which \f$ f(\mathcal{B}) \f$ denotes the objective/cost function. Equation (2) ensures that the nonlinear program constitutes at least an initial value problem. The final constrained equation (3) is not mendatory. But if it is not provided, the final state behavior should be specified using dedicated final state costs as part of \f$ f(\mathcal{B}) \f$. \f$ \mathcal{E} \f$ and \f$ \mathcal{I} \f$ denote the indices sets of equality and inequality constraints respectively.
+
+
+For many problems the structure of the underlying optimization problem is sparse. To exploit these local relationships between states and control inputs, the optimization problem is formulated as a hyper-graph according to the formulism in \cite kummerle2011.
+The user has to define edges that represent "local" cost functions according to teb::BaseEdge and its subclasses.
+They can be added to the TEB controller by overriding teb::TebController::customOptimizationGraph().
+A lot of common optimization and model predictive control problems are already implemented as Edge (especially for nonlinear dynamic systems in state-space
+representation. Refer to teb::SystemDynamics and the example programs for further information.
+
+\subsection solution Solution of the TEB Optimization Problem
+
+Solving the nonlinear program (1)-(5) requieres the utilization of dedicated solvers that support constraints.
+The solver classes are constantly expanded as subclasses of teb::BaseSolver.
+
+An approximation to the solution can by computed efficiently using "Least Squares Solvers" and "Soft Constraints". 
+Least Square Optimziation Problem require squared objectives.
+The solver class teb::BaseSolverLeastSquares transforms equation (1) to \f$ V^*(\mathcal{B}) = \min f(\mathcal{B})^2 \f$.
+Hard constraints (4) and (5) are transformed to soft constraints. Refer to the specific class description.
+teb::SolverLevenbergMarquardtEigenDense optimizes this transformed "least-squares" problem using the Levenberg-Marquardt algorithm (Dense means, that no sparse structure is exploited for the solution of the linear system. But only for the calculation of Jacobians due to the hyper-graph representation).
+
+
+\section further_information Further Information
+
+Fore more detailed information about the Timed-Elastic-Band approach and applications refer to \cite rosmann2012 \cite rosmann2013  \cite keller2014 \cite kummerle2011.
+
+\subsection Download
+
+Refer to the \ref download "download section".
+
+\subsection Installation
+
+Refer to the \ref install "installation instructions".
+
+@author Christoph Rösmann (christoph.roesmann@tu-dortmund.de)
+
+@remark For research only.
+*/
