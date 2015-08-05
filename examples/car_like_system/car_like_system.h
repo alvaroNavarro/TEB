@@ -83,7 +83,7 @@ protected:
     double _phi_max = M_PI/6;    //! Correspond to the maximum angle of turning    
     double _R_max = 1;        
     
-    double _epsilon = 0.7;
+    double _epsilon = 0.1;
     double _step_epsilon = 0.1;
     double _limit_epsilon = 0.9;
             

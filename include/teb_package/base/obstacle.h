@@ -465,6 +465,20 @@ namespace teb
 	    _cluster.push_back(polyObs); 
 	  }
 	  
+	  bool isClusterContainerEmpty()
+	  {
+	     if(_cluster.empty())  return true;
+	     else                  return false;
+	  }
+	  
+	  void removeCluster() {_cluster.pop_back();}
+	  
+	  void removeAllClusters()
+	  {
+	     while(!isClusterContainerEmpty())
+	        removeCluster();
+	  }
+	  
 	  void scene_1()
 	  {
 	     _cluster.front()->addPointPolygon({-3,-4});

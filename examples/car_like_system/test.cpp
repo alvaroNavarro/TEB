@@ -54,8 +54,8 @@ int main()
     test.setRefSolver(&cfg.optim.solver.lsq);
     test.setRobPlotter(&rplot);    
     
-    using namespace std::placeholders;
-    sim.setPostStepCallback(std::bind(&teb::RobControllerCarLike<n_state, n_control>::updateObstaclePosition, &teb, _1, _2, _3));
+//     using namespace std::placeholders;
+//     sim.setPostStepCallback(std::bind(&teb::RobControllerCarLike<n_state, n_control>::updateObstaclePosition, &teb, _1, _2, _3));
 	
     
     //! Present the menu to the user..

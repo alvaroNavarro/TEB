@@ -66,18 +66,18 @@ namespace teb
             {  
 	   
 		  //Add the yaw angle..
- 	          EdgeYawAngle<p>* yaw_angle_edge = new EdgeYawAngle<p>(_state_seq.at(i));
- 		  yaw_angle_edge->setEdgeWeight(_weight_YawAngle);
- 		 _graph.addEdgeInequality(yaw_angle_edge);
-		 
-		 //Add the edge for rate steering angle
- 		 EdgeRateSteeringWheelAngle<q>* delta_dot_edge = new EdgeRateSteeringWheelAngle<q>(_ctrl_seq.at(i), _ctrl_seq.at(i + 1), _dt);
- 		 delta_dot_edge->setEdgeWeight(_weight_DeltaDot);
- 		_graph.addEdgeInequality(delta_dot_edge);
-		
-		//! Add edge for linear velocity
-		EdgeLimitVelocity<p>* velocity_edge = new EdgeLimitVelocity<p>(_state_seq.at(i), _state_seq.at(i+1), _dt);
-		_graph.addEdgeInequality(velocity_edge);
+//  	          EdgeYawAngle<p>* yaw_angle_edge = new EdgeYawAngle<p>(_state_seq.at(i));
+//  		  yaw_angle_edge->setEdgeWeight(_weight_YawAngle);
+//  		 _graph.addEdgeInequality(yaw_angle_edge);
+// 		 
+// 		 //Add the edge for rate steering angle
+//  		 EdgeRateSteeringWheelAngle<q>* delta_dot_edge = new EdgeRateSteeringWheelAngle<q>(_ctrl_seq.at(i), _ctrl_seq.at(i + 1), _dt);
+//  		 delta_dot_edge->setEdgeWeight(_weight_DeltaDot);
+//  		_graph.addEdgeInequality(delta_dot_edge);
+// 		
+// 		//! Add edge for linear velocity
+// 		EdgeLimitVelocity<p>* velocity_edge = new EdgeLimitVelocity<p>(_state_seq.at(i), _state_seq.at(i+1), _dt);
+// 		_graph.addEdgeInequality(velocity_edge);
 	      
 	      
 	          for (/*const Obstacle& obst : _obstacles*/ unsigned int j=0; j<_obstacles.size(); ++j)

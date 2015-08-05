@@ -280,7 +280,7 @@ class Test
     
  protected:      
    
-   unsigned int _idx_epsilon = 0;
+   unsigned int _idx_epsilon = 1;
    unsigned int _sim_idx; 
    unsigned int _number_steps_epsilon;
    
@@ -291,13 +291,7 @@ class Test
    teb::ClusterObstacle _cluster;
    
    teb::Config::Optim::Solver::Lsq* _solver_ref;
-   
-   //std::random_device rd;   // non-deterministic generator
-   //std::mt19937_64 gen(rd());  				                      // to seed mersenne twister.     
-   //std::default_random_engine generator;
-   
-   //std::default_random_engine gen;
-   
+    
    std::mt19937_64 gen;      
    
    struct passwd *_pws;
@@ -340,6 +334,8 @@ class Test
    const unsigned int _max_number_obs = 15;
    
    bool _initial_simulation = true;      //! At the beginning of the simulation...
+   double _dis;
+   double _time;
    
  public:
    

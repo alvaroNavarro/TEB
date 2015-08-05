@@ -310,9 +310,7 @@ void SolverLevenbergMarquardtEigenSparse::buildJacobian()
             }
         }
         jac_row_idx += edge->dimension();
-    }
-    
-    
+    }         
 }
     
     
